@@ -44,6 +44,5 @@ namespace BL
             Ref_PhoneBookContext.Entry(m_Phone).State = EntityState.Modified;
             Ref_PhoneBookContext.SaveChanges();
         }
-    
     }
 }
