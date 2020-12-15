@@ -34,7 +34,7 @@ namespace BL
             Ref_PhoneBookContext.PhoneBookList.Add(m_Phone);
         }
 
-        public void Update(M_PhoneBook m_PhoneBook)
+        public void UpdatePerson(M_PhoneBook m_PhoneBook)
         {
             M_PhoneBook m_Phone = new M_PhoneBook();
             m_Phone =Ref_PhoneBookContext.PhoneBookList.Find(m_PhoneBook.Id);
@@ -44,5 +44,15 @@ namespace BL
             Ref_PhoneBookContext.Entry(m_Phone).State = EntityState.Modified;
             Ref_PhoneBookContext.SaveChanges();
         }
+
+        public void DeletePerson(int id)
+        {
+            var q= Ref_PhoneBookContext.PhoneBookList.Find(id);
+            Ref_PhoneBookContext.PhoneBookList.Remove(q);
+            Ref_PhoneBookContext.SaveChanges();
+
+        }
+
+
     }
 }

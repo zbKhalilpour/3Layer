@@ -28,8 +28,15 @@ namespace AppL.Controllers
         public ActionResult Update(M_PhoneBook m_PhoneBook)
         {
             var bz = new PhoneBook();
-            bz.Update(m_PhoneBook);
+            bz.UpdatePerson(m_PhoneBook);
             return Json(new {Message="succses" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var bz = new PhoneBook();
+            bz.DeletePerson(id);
+            return Json(new { Message = "succses" }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -130,6 +130,24 @@
             });
         })
 
+        //***Delete***
+        $('.Delete').click(function () {
+            var id = select.id;
+            $.ajax({
+                url: "/Simple/Delete",
+                type: "post",
+                dataType: "json",
+                data: json.stringify(id),
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    alert("Delete");
+                    location.reload("table");
+                },
+                //error: function () {
+                //    alert(errormessage.responseText);
+                //},
+            });
+        })
     </script>
 </body>
 </html>
