@@ -1,0 +1,137 @@
+﻿@model BL.PhoneBook
+
+@*@{
+    ViewBag.Title = "Index";
+}*@ 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="Styles.css">
+    <title>3LayerSample</title>
+    <style>
+        th , td , table{
+            border:1px solid;
+            margin:5px;
+        }
+        button {
+            width: 50px;
+            height: 30px;
+            color: red;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>3LayerSample</h1>
+    <form>
+        First Name:
+        <input class="inputFName">
+        <br>
+        Last Name:
+        <input class="inputLName">
+        <br>
+        Phone Number:
+        <input class="inputPhoneNumber">
+    </form>
+    <br>
+
+    <button type="submit" class="Insert" name="btnAdd">Add</button>
+    <button type="submit" class="Update" name="btnEdit">Edit</button>
+    <button type="submit" class="Delete" name="btnDelete">Delete</button>
+    <br>
+    <table>
+        <tr id="tr1">
+            <th id="Id">ID</th>
+            <th id="FName">First Name</th>
+            <th id="LName">Last Name</th>
+            <th id="PhoneNumber">Phone Number</th>
+        </tr>
+        @foreach (var item in ViewBag.List)
+        {
+            <tr>
+                <td id="Id">@item.Id</td>
+                <td id="FName">@item.FName</td>
+                <td id="LName">@item.LName</td>
+                <td id="PhoneNumber">@item.PhoneNumber</td>
+            </tr>
+        }
+
+    </table>
+
+
+    <script>
+
+        //******Insert*****//
+        
+        $('.Insert').click(function ()
+        {
+            ref_PhoneBook = {
+                Fname: $('.inputFName').val(),
+                Lname: $('.inputLName').val(),
+                PhoneNumber: $('.inputPhoneNumber').val(),
+            }
+
+            $.ajax({
+                url: "/Simple/Create",
+                type: "post",
+                dataType: "json",
+                data: json.stringify(ref_PhoneBook),
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    alert("Added");
+                    location.reload();
+                    //location.reload("table");
+                },
+                //error: function () {
+                //    alert(errormessage.responseText);
+                //},
+            });
+
+        })
+
+        //******selectRow
+
+        $('#tr1').click(function () {
+            select = {
+                id: $('#Id').text(),
+                fName: $('#FName').text(),
+                lName: $('#LName').text(),
+                phoneNumber: $('#PhoneNumber').text(),
+            };
+            $('.inputFName').val(select.fName);
+            $('.inputLName').val(select.lName);
+            $('.inputPhoneNumber').val(select.phoneNumber);
+        })
+
+        //*****Update*****
+        $(".Update").click(function () {
+            ref_PhoneBook = {
+                ID: select.id,
+                Fname: $('.inputFName').val(),
+                Lname: $('.inputLName').val(),
+                PhoneNumber: $('.inputPhoneNumber').val(),
+            }
+
+            $.ajax({
+                url: "/Simple/Update",
+                type: "post",
+                dataType: "json",
+                data: json.stringify(ref_PhoneBook),
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    alert("Update");
+                    location.reload('table');
+                },
+                //error: function () {
+                //    alert(errormessage.responseText);
+                //},
+            });
+        })
+
+    </script>
+</body>
+</html>
+
+
