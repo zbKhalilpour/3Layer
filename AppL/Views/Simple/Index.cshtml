@@ -1,0 +1,96 @@
+﻿@model BL.PhoneBook
+
+@*@{
+    ViewBag.Title = "Index";
+}*@ 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="Styles.css">
+    <title>3LayerSample</title>
+    <style>
+        th , td , table{
+            border:1px solid;
+            margin:5px;
+        }
+        button {
+            width: 50px;
+            height: 30px;
+            color: red;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>3LayerSample</h1>
+    <form>
+        First Name:
+        <input class="inputFName">
+        <br>
+        Last Name:
+        <input class="inputLName">
+        <br>
+        Phone Number:
+        <input class="inputPhoneNumber">
+    </form>
+    <br>
+
+    <button type="submit" class="Insert" name="btnAdd">Add</button>
+    <button type="submit" class="Update" name="btnEdit">Edit</button>
+    <button type="submit" class="Delete" name="btnDelete">Delete</button>
+    <br>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+        </tr>
+        @foreach (var item in ViewBag.List)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FName</td>
+                <td>@item.LName</td>
+                <td>@item.PhoneNumber</td>
+            </tr>
+        }
+
+    </table>
+
+
+    <script>
+
+        //******Edit*****//
+        
+        $('.Insert').click(function ()
+        {
+            ref_PhoneBook = {
+                Fname: $('.inputFName').val(),
+                Lname: $('.inputLName').val(),
+                PhoneNumber: $('.inputPhoneNumber').val(),
+            }
+
+            $.ajax({
+                url: "/Simple/Create",
+                type: "post",
+                dataType: "json",
+                data: json.stringify(ref_PhoneBook),
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    alert("Added");
+                    location.reload("table");
+                },
+                //error: function () {
+                //    alert(errormessage.responseText);
+                //},
+            });
+
+        })
+    </script>
+</body>
+</html>
+
+
